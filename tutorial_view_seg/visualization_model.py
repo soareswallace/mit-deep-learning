@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 from matplotlib import gridspec
+from PIL import Image
 
 def create_label_colormap():
     """Creates a label colormap used in Cityscapes segmentation benchmark.
@@ -90,6 +91,11 @@ def vis_segmentation(image, seg_map):
     plt.grid('off')
     plt.show()
 
+def run_visualization_on_static_image(SAMPLE_IMAGE, MODEL):
+    """Inferences DeepLab model and visualizes result."""
+    original_im = Image.open(SAMPLE_IMAGE)
+    seg_map = MODEL.run(original_im)
+    vis_segmentation(original_im, seg_map)
 
 LABEL_NAMES = np.asarray([
     'road', 'sidewalk', 'building', 'wall', 'fence', 'pole', 'traffic light',
